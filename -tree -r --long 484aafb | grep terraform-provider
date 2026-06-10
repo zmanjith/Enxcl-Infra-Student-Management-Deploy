@@ -1,0 +1,38 @@
+[33mcommit 484aafbcd7227fc957082b5a3c15950f257a78cd[m
+Author: zmanjith <zmanjith@gmail.com>
+Date:   Tue Jun 9 20:25:01 2026 -0500
+
+    Creating ECR, EC2 using Terraform
+
+ backend/Dockerfile                                                                                                    |     20 [32m+[m
+ backend/check_pg.sh                                                                                                   |     15 [32m+[m
+ backend/mvnw                                                                                                          |      0
+ backend/pom.xml                                                                                                       |     11 [32m+[m[31m-[m
+ backend/src/main/java/com/student/management/controller/StudentController.java                                        |     25 [32m+[m
+ backend/src/main/java/com/student/management/entity/Student.java                                                      |     44 [32m+[m
+ backend/src/main/java/com/student/management/repository/StudentRepository.java                                        |      9 [32m+[m
+ backend/src/main/resources/application.properties                                                                     |      6 [32m+[m
+ backend/src/main/resources/application.properties:Zone.Identifier                                                     |    Bin [31m88[m -> [32m0[m bytes
+ backend/src/test/resources/application.properties                                                                     |      6 [32m+[m
+ db/init.sql                                                                                                           |     11 [32m+[m
+ docker-compose.yaml                                                                                                   |     58 [32m+[m
+ frontend/Dockerfile                                                                                                   |      5 [32m+[m
+ frontend/index.html                                                                                                   |     33 [32m+[m
+ frontend/script.js                                                                                                    |     24 [32m+[m
+ frontend/style.css                                                                                                    |     23 [32m+[m
+ terraform.tfstate                                                                                                     |      9 [32m+[m
+ terraform/.terraform.lock.hcl                                                                                         |     25 [32m+[m
+ terraform/.terraform/providers/registry.terraform.io/hashicorp/aws/6.49.0/linux_amd64/LICENSE.txt                     |    375 [32m+[m
+ .../.terraform/providers/registry.terraform.io/hashicorp/aws/6.49.0/linux_amd64/terraform-provider-aws_v6.49.0_x5     |    Bin [31m0[m -> [32m869273762[m bytes
+ terraform/data.tf                                                                                                     |     26 [32m+[m
+ terraform/main.tf                                                                                                     |     38 [32m+[m
+ terraform/output.tf                                                                                                   |     24 [32m+[m
+ terraform/provider.tf                                                                                                 |      8 [32m+[m
+ terraform/scripts/user-data.sh                                                                                        |     11 [32m+[m
+ terraform/security_group.tf                                                                                           |     38 [32m+[m
+ terraform/terraform.tfstate                                                                                           |    564 [32m+[m
+ terraform/terraform.tfstate.backup                                                                                    |    101 [32m+[m
+ terraform/tf.log                                                                                                      | 119295 [32m+++++++++++++++++++++++++++++++++++++++++++++++++++++++++[m
+ terraform/varaiables.tf                                                                                               |      6 [32m+[m
+ tf.log                                                                                                                |    184 [32m+[m
+ 31 files changed, 120989 insertions(+), 5 deletions(-)
