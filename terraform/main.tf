@@ -11,6 +11,7 @@ resource "aws_ecr_repository" "image_store" {
     for_each = toset(var.repositories)
     name                 = each.value
     image_tag_mutability = "MUTABLE"
+    force_delete          = true
 }
 
 resource "aws_key_pair" "enxcl_demo_key" {

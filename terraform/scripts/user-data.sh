@@ -1,11 +1,33 @@
 #!/bin/bash
 
-sudo apt update -y
 
-sudo apt install docker.io -y
+exec > >(tee /var/log/user-data.log)  # Redirect stdout to a log file
+exec 2>&1 # Redirect stderr to the same log file
 
-sudo systemctl enable docker
+echo "Starting bootstrap..."
 
-sudo systemctl start docker
+apt-get update -y
 
-sudo usermod -aG docker ec2-user
+apt-get install -y \
+    docker.io \
+    curl \
+    unzip
+
+systemctl enable docker
+systemctl start docker
+
+usermod -aG docker ubuntu
+
+mkdir -p /usr/local/lib/docker/cli-plugins
+
+curl -SL \
+https://github.com/docker/compose/releases/latest/download/docker-compose-linux-x86_64 \
+-o /usr/local/lib/docker/cli-plugins/docker-compose
+
+chmod +x /usr/local/lib/docker/cli-plugins/docker-compose
+
+docker --version
+
+docker compose version
+
+echo "Bootstrap completed."

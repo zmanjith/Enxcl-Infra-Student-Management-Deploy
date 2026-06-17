@@ -1,0 +1,51 @@
+name: Build and Push Images
+
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+  steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Configure AWS
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ secrets.AWS_REGION }}
+
+    - name: Login to ECR
+      id: login-ecr
+      uses: aws-actions/amazon-ecr-login@v2
+
+    - name: Build Frontend
+      run: |
+        docker build \
+        -t $AWS_ACCOUNT_ID.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$FRONTEND_REPO:${{ github.sha }} \
+        ./frontend
+
+    - name: Build Backend
+      run: |
+        docker build \
+        -t $AWS_ACCOUNT_ID.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$BACKEND_REPO:${{ github.sha }} \
+        ./backend
+
+    - name: Push Frontend
+      run: |
+        docker push \
+        $AWS_ACCOUNT_ID.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$FRONTEND_REPO:${{ github.sha }}
+    - name: Push Backend
+      run: |
+        docker push \
+        $AWS_ACCOUNT_ID.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$BACKEND_REPO:${{ github.sha }}
+
+env:
+  AWS_ACCOUNT_ID: 924982554051
+
+  FRONTEND_REPO: frontend-repo
+
+  BACKEND_REPO: backend-repo

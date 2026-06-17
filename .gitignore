@@ -6,7 +6,7 @@
 .terraform/
 
 # Lock file
-.terraform.lock.hcl
+#.terraform.lock.hcl
 
 # Logs
 *.log
