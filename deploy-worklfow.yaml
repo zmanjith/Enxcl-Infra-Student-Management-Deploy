@@ -4,9 +4,16 @@ on:
   push:
     branches:
       - main
+
+env:
+  FRONTEND_REPO: frontend-repo
+
+  BACKEND_REPO: backend-repo
+
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+
   steps:
     - name: Checkout Code
       uses: actions/checkout@v4
@@ -25,27 +32,21 @@ jobs:
     - name: Build Frontend
       run: |
         docker build \
-        -t $AWS_ACCOUNT_ID.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$FRONTEND_REPO:${{ github.sha }} \
+        -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$FRONTEND_REPO:${{ github.sha }} \
         ./frontend
 
     - name: Build Backend
       run: |
         docker build \
-        -t $AWS_ACCOUNT_ID.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$BACKEND_REPO:${{ github.sha }} \
+        -t ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$BACKEND_REPO:${{ github.sha }} \
         ./backend
 
     - name: Push Frontend
       run: |
         docker push \
-        $AWS_ACCOUNT_ID.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$FRONTEND_REPO:${{ github.sha }}
+        ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$FRONTEND_REPO:${{ github.sha }}
+
     - name: Push Backend
       run: |
         docker push \
-        $AWS_ACCOUNT_ID.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$BACKEND_REPO:${{ github.sha }}
-
-env:
-  AWS_ACCOUNT_ID: 924982554051
-
-  FRONTEND_REPO: frontend-repo
-
-  BACKEND_REPO: backend-repo
+        ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/$BACKEND_REPO:${{ github.sha }
