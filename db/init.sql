@@ -7,5 +7,5 @@ CREATE TABLE students (
 INSERT INTO students(name, course)
 VALUES
 ('Alan','AWS'),
-('Naufia','DevOps'),
+('Reshma','DevOps'),
 ('Jerin','Java');

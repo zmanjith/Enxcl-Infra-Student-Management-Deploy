@@ -67,12 +67,6 @@ jobs:
 
           script: |
 
-            hostname
-            whoami
-            docker --version
-
-
-
             export IMAGE_TAG=${{ github.sha }}
 
             export FRONTEND_IMAGE=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend-repo:$IMAGE_TAG
