@@ -27,7 +27,7 @@ services:
 
   backend:
 
-    build: ./backend
+    build: ${BACKEND_IMAGE}
 
     container_name: backend
 
@@ -47,7 +47,7 @@ services:
 
   frontend:
 
-    build: ./frontend
+    build: ${FRONTEND_IMAGE}
 
     container_name: frontend
 

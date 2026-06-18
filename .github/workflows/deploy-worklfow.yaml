@@ -73,21 +73,21 @@ jobs:
 
 
 
-            # export IMAGE_TAG=${{ github.sha }}
+            export IMAGE_TAG=${{ github.sha }}
 
-            # export FRONTEND_IMAGE=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend-repo:$IMAGE_TAG
+            export FRONTEND_IMAGE=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/frontend-repo:$IMAGE_TAG
 
-            # export BACKEND_IMAGE=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/backend-repo:$IMAGE_TAG
+            export BACKEND_IMAGE=${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com/backend-repo:$IMAGE_TAG
 
-            # aws ecr get-login-password \
-            #   --region ${{ secrets.AWS_REGION }} \
-            # | docker login \
-            #   --username AWS \
-            #   --password-stdin \
-            #   ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
+            aws ecr get-login-password \
+              --region ${{ secrets.AWS_REGION }} \
+            | docker login \
+              --username AWS \
+              --password-stdin \
+              ${{ secrets.AWS_ACCOUNT_ID }}.dkr.ecr.${{ secrets.AWS_REGION }}.amazonaws.com
 
-            # cd /home/ubuntu/app
+            cd /home/ubuntu/app
 
-            # docker compose pull
+            docker compose pull
 
-            # docker compose up -d --force-recreate
+            docker compose up -d --force-recreate
